@@ -1,71 +1,510 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>btar1gan</title>
-  <meta name="author" content="btar1gan" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>btar1gan — Bryan Tarigan</title>
+  <meta name="author" content="Bryan Tarigan">
+  <meta name="description" content="Bryan Tarigan — Cybersecurity Consultant. Penetration Testing, Bug Bounty, Web Security.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Righteous|Ubuntu+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" media="screen" href="css/style.css">
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="http//103.191.15.137/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
 
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Themes ──────────────────────────────────────────── */
+    :root {
+      --orange:    #fc7a00;
+      --orange-bg: rgba(252,122,0,0.08);
+      --font-mono: 'Ubuntu Mono', 'Courier New', monospace;
+      --font-disp: 'Righteous', cursive;
+      --transition: 0.35s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* Dark (default) */
+    [data-theme="dark"] {
+      --bg:          #080c17;
+      --vignette:    rgba(8,12,23,0.72);
+      --card-bg:     rgba(12, 18, 32, 0.72);
+      --card-border: rgba(252, 122, 0, 0.18);
+      --card-shadow: 0 24px 60px rgba(0,0,0,0.55);
+      --text:        #e8eaf0;
+      --muted:       #7a8099;
+      --link-border: rgba(255,255,255,0.07);
+      --p-color1:    #fc7a00;
+      --p-color2:    #b35700;
+      --p-color3:    #ffffff;
+      --p-line:      #fc7a00;
+      --p-line-op:   0.12;
+    }
+
+    /* Light */
+    [data-theme="light"] {
+      --bg:          #f0ede8;
+      --vignette:    rgba(210,200,185,0.5);
+      --card-bg:     rgba(255, 253, 250, 0.82);
+      --card-border: rgba(252, 122, 0, 0.28);
+      --card-shadow: 0 16px 48px rgba(60,40,10,0.14);
+      --text:        #1c1610;
+      --muted:       #7a6a55;
+      --link-border: rgba(0,0,0,0.1);
+      --p-color1:    #fc7a00;
+      --p-color2:    #d46200;
+      --p-color3:    #a08060;
+      --p-line:      #fc7a00;
+      --p-line-op:   0.18;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      overflow: hidden;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    /* ── Particles ───────────────────────────────────────── */
+    #particles-js {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      transition: background var(--transition);
+    }
+
+    /* ── Controls top-right ──────────────────────────────── */
+    .controls {
+      position: fixed;
+      top: 1.2rem;
+      right: 1.4rem;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .ctrl-btn {
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .35rem .7rem;
+      border-radius: 20px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: .72rem;
+      letter-spacing: .05em;
+      cursor: pointer;
+      transition: color .2s, border-color .2s, background .2s;
+      user-select: none;
+    }
+
+    .ctrl-btn:hover {
+      color: var(--orange);
+      border-color: rgba(252,122,0,0.45);
+    }
+
+    .ctrl-btn i { font-size: .8rem; }
+
+    /* ── Stage ───────────────────────────────────────────── */
+    .stage {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    /* ── Card ────────────────────────────────────────────── */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      backdrop-filter: blur(18px) saturate(1.4);
+      -webkit-backdrop-filter: blur(18px) saturate(1.4);
+      padding: 2.8rem 3rem;
+      max-width: 680px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 2.8rem;
+      box-shadow: var(--card-shadow), inset 0 1px 0 rgba(255,255,255,0.06);
+      transition:
+        background var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition);
+
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.7s cubic-bezier(.22,.68,0,1.1) 0.35s forwards;
+    }
+
+    @keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
+
+    /* ── Avatar ──────────────────────────────────────────── */
+    .avatar-wrap { flex-shrink: 0; position: relative; }
+
+    .avatar-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--orange) 0deg, transparent 80deg,
+        transparent 200deg, var(--orange) 280deg, var(--orange) 360deg
+      );
+      animation: spin 6s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .avatar-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      background: var(--bg);
+      transition: background var(--transition);
+    }
+
+    .avatar {
+      position: relative; z-index: 1;
+      width: 120px; height: 120px;
+      border-radius: 50%; object-fit: cover; display: block;
+    }
+
+    /* ── Info ────────────────────────────────────────────── */
+    .info { flex: 1; min-width: 0; }
+
+    .handle {
+      font-family: var(--font-disp);
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      color: var(--orange);
+      letter-spacing: .02em;
+      line-height: 1;
+      margin-bottom: .35rem;
+    }
+
+    .fullname {
+      font-size: clamp(.9rem, 2.5vw, 1.1rem);
+      color: var(--text);
+      font-weight: 700;
+      margin-bottom: .25rem;
+      transition: color var(--transition);
+    }
+
+    .role {
+      font-size: clamp(.78rem, 2vw, .9rem);
+      color: var(--muted);
+      min-height: 1.3em;
+      transition: color var(--transition);
+    }
+
+    .cursor {
+      display: inline-block; width: 2px; height: 1em;
+      background: var(--orange); vertical-align: text-bottom;
+      margin-left: 2px; animation: blink .9s step-end infinite;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ── Divider ─────────────────────────────────────────── */
+    .divider {
+      margin: 1.2rem 0; height: 1px;
+      background: linear-gradient(90deg, var(--orange) 0%, transparent 100%);
+      opacity: .3;
+    }
+
+    /* ── Tags ────────────────────────────────────────────── */
+    .tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: 1.3rem; }
+
+    .tag {
+      font-size: .7rem;
+      padding: .25rem .65rem;
+      border: 1px solid rgba(252,122,0,0.35);
+      border-radius: 4px;
+      color: var(--muted);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: color .2s, border-color .2s, background .2s;
+    }
+
+    .tag:hover {
+      color: var(--orange);
+      border-color: var(--orange);
+      background: var(--orange-bg);
+    }
+
+    /* ── Social links ────────────────────────────────────── */
+    .links { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+
+    .link {
+      color: var(--muted);
+      font-size: 1.35rem;
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--link-border);
+      border-radius: 8px;
+      text-decoration: none;
+      transition: color .25s, border-color .25s, transform .2s, background .25s;
+    }
+
+    .link:hover {
+      color: var(--orange);
+      border-color: rgba(252,122,0,0.5);
+      background: var(--orange-bg);
+      transform: translateY(-2px);
+    }
+
+    .email-link {
+      display: flex; align-items: center; gap: .5rem;
+      margin-left: .2rem; font-size: .78rem;
+      color: var(--muted); text-decoration: none;
+      transition: color .25s; white-space: nowrap;
+    }
+
+    .email-link i { font-size: .85rem; }
+    .email-link:hover { color: var(--orange); }
+
+    /* ── Vignette ────────────────────────────────────────── */
+    .vignette {
+      pointer-events: none; position: fixed; inset: 0; z-index: 5;
+      background: radial-gradient(ellipse at center, transparent 50%, var(--vignette) 100%);
+      transition: background var(--transition);
+    }
+
+    /* ── Mobile ──────────────────────────────────────────── */
+    @media (max-width: 560px) {
+      body { overflow: auto; }
+      html, body { height: auto; }
+      .stage { position: relative; min-height: 100svh; padding-top: 4.5rem; }
+      .card {
+        flex-direction: column; text-align: center;
+        padding: 2rem 1.6rem; gap: 1.4rem;
+      }
+      .avatar { width: 96px; height: 96px; }
+      .divider { background: linear-gradient(90deg, transparent, var(--orange), transparent); }
+      .tags, .links { justify-content: center; }
+      .email-link span { display: none; }
+    }
+  </style>
 </head>
-<body>
+<body data-theme="light">
 
-<!-- count particles -->
-<div class="count-particles">
-  <span class="js-count-particles">--</span>
-</div>
+  <div id="particles-js"></div>
+  <div class="vignette"></div>
 
-<!-- particles.js container -->
-<div id="particles-js">
-  <div class="container">
-    <div class="center">
-      <div class="row d-flex flex-wrap align-items-center">
-        <div class="col-md-5">
-          <img class="image img-fluid" src="img/avatar.jpg" alt="btar1gan">
+  <!-- Controls -->
+  <div class="controls">
+    <button class="ctrl-btn" id="themeBtn" aria-label="Toggle theme">
+      <i class="fas fa-moon" id="themeIcon"></i>
+      <span id="themeLabel">Dark</span>
+    </button>
+    <button class="ctrl-btn" id="langBtn" aria-label="Toggle language">
+      <i class="fas fa-globe"></i>
+      <span id="langLabel">ID</span>
+    </button>
+  </div>
+
+  <div class="stage">
+    <div class="card">
+      <div class="avatar-wrap">
+        <img class="avatar" src="img/avatar.jpg" alt="Bryan Tarigan">
+      </div>
+      <div class="info">
+        <p class="handle">btar1gan</p>
+        <p class="fullname">Bryan Tarigan</p>
+        <p class="role"><span class="typewriter"></span><span class="cursor"></span></p>
+
+        <div class="divider"></div>
+
+        <div class="tags">
+          <span class="tag" data-en="Penetration Testing" data-id="Uji Penetrasi">Penetration Testing</span>
+          <span class="tag" data-en="Bug Bounty"          data-id="Bug Bounty">Bug Bounty</span>
+          <span class="tag" data-en="Web Security"        data-id="Keamanan Web">Web Security</span>
+          <span class="tag" data-en="CTF"                 data-id="CTF">CTF</span>
         </div>
-        <div class="col-md">
-          <p class="header1">btar1gan</p>
-          <p class="header2">Bryan Tarigan</p>
-          <p class="header3">Cybersecurity Consultant</p>
-          <a class="link1" href="https://www.linkedin.com/in/bryantarigan/" target=”_blank” data-toggle="tooltip" data-placement="bottom" title="Linkedin"><i class="fab fa-linkedin"></i></a>
-          <a class="link1" href="https://github.com/btar1gan" target=”_blank” data-toggle="tooltip" data-placement="bottom" title="Github"><i class="fab fa-github"></i></a>
-          <a class="link1" href="https://hackerone.com/btar1gan/hacktivity" target=”_blank” data-toggle="tooltip" data-placement="bottom" title="Hackerone"><i class="fab fa-github"></i></a>
-          <a class="link1" href="https://www.youtube.com/@veritasium" target=”_blank” data-toggle="tooltip" data-placement="bottom" title="Youtube"><i class="fab fa-youtube"></i></a>
-          <!-- <a class="link1" href="https://instagram.com/" target=”_blank” data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fab fa-instagram"></i></a> -->
-          <p class="header3">tarigan.garage@protonmail.com</p>
+
+        <div class="links">
+          <a class="link" href="https://www.linkedin.com/in/bryantarigan/" target="_blank" rel="noopener" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a class="link" href="https://github.com/btar1gan" target="_blank" rel="noopener" title="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a class="link" href="https://hackerone.com/btar1gan/hacktivity" target="_blank" rel="noopener" title="HackerOne">
+            <i class="fas fa-bug"></i>
+          </a>
+          <a class="link" href="https://www.youtube.com/@veritasium" target="_blank" rel="noopener" title="YouTube">
+            <i class="fab fa-youtube"></i>
+          </a>
+          <a class="email-link" href="mailto:tarigan.garage@protonmail.com">
+            <i class="fas fa-envelope"></i>
+            <span>tarigan.garage@protonmail.com</span>
+          </a>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- scripts -->
-<script src="./particles.js"></script>
-<script src="js/app.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<!-- stats.js -->
-<script src="js/lib/stats.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
 
+  <script>
+    /* ── State ───────────────────────────────────────────── */
+    const saved = {
+      theme: localStorage.getItem('theme') || 'light',
+      lang:  localStorage.getItem('lang')  || 'en'
+    };
+
+    /* ── i18n ────────────────────────────────────────────── */
+    const i18n = {
+      en: {
+        roles:    ['Cybersecurity Consultant', 'Penetration Tester', 'Bug Bounty Hunter'],
+        darkBtn:  'Dark',
+        lightBtn: 'Light',
+        idBtn:    'ID'
+      },
+      id: {
+        roles:    ['Konsultan Keamanan Siber', 'Penguji Penetrasi', 'Pemburu Bug Bounty'],
+        darkBtn:  'Gelap',
+        lightBtn: 'Terang',
+        idBtn:    'EN'
+      }
+    };
+
+    let currentLang  = saved.lang;
+    let currentTheme = saved.theme;
+
+    /* ── Particles init ──────────────────────────────────── */
+    function initParticles(theme) {
+      const dark = theme === 'dark';
+      // destroy existing instance if any
+      if (window.pJSDom && window.pJSDom.length) {
+        window.pJSDom[0].pJS.fn.vendors.destroypJS();
+        window.pJSDom = [];
+      }
+      document.getElementById('particles-js').innerHTML = '';
+
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 65, density: { enable: true, value_area: 900 } },
+          color: { value: dark
+            ? ['#fc7a00', '#b35700', '#ffffff']
+            : ['#fc7a00', '#d46200', '#a08060']
+          },
+          shape: { type: 'circle' },
+          opacity: { value: dark ? 0.45 : 0.55, random: true },
+          size:    { value: 2.5, random: true },
+          line_linked: {
+            enable: true, distance: 140, color: '#fc7a00',
+            opacity: dark ? 0.12 : 0.2, width: 1
+          },
+          move: { enable: true, speed: 1.2, direction: 'none', random: true, out_mode: 'out' }
+        },
+        interactivity: {
+          detect_on: 'canvas',
+          events: {
+            onhover: { enable: true, mode: 'grab' },
+            onclick: { enable: true, mode: 'push' },
+            resize: true
+          },
+          modes: {
+            grab: { distance: 140, line_linked: { opacity: 0.4 } },
+            push: { particles_nb: 3 }
+          }
+        },
+        retina_detect: true
+      });
+    }
+
+    /* ── Apply theme ─────────────────────────────────────── */
+    function applyTheme(theme) {
+      currentTheme = theme;
+      document.body.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+
+      const dark = theme === 'dark';
+      const t = i18n[currentLang];
+      document.getElementById('themeIcon').className = dark ? 'fas fa-sun' : 'fas fa-moon';
+      document.getElementById('themeLabel').textContent = dark ? t.lightBtn : t.darkBtn;
+
+      initParticles(theme);
+    }
+
+    /* ── Apply language ──────────────────────────────────── */
+    function applyLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('lang', lang);
+      document.documentElement.lang = lang === 'id' ? 'id' : 'en';
+
+      const t = i18n[lang];
+
+      // tag text
+      document.querySelectorAll('.tag[data-' + lang + ']').forEach(el => {
+        el.textContent = el.dataset[lang];
+      });
+
+      // lang button label
+      document.getElementById('langLabel').textContent = lang === 'id' ? 'EN' : 'ID';
+
+      // theme button label (re-sync with new lang)
+      const dark = currentTheme === 'dark';
+      document.getElementById('themeLabel').textContent = dark ? t.lightBtn : t.darkBtn;
+
+      // restart typewriter with new language
+      restartTypewriter(t.roles);
+    }
+
+    /* ── Typewriter ──────────────────────────────────────── */
+    let twTimer = null;
+    let twRoles = i18n[currentLang].roles;
+    let ri = 0, ci = 0, deleting = false, waitFrames = 0;
+    const twEl = document.querySelector('.typewriter');
+
+    function restartTypewriter(roles) {
+      clearTimeout(twTimer);
+      twRoles = roles;
+      ri = 0; ci = 0; deleting = false; waitFrames = 0;
+      twEl.textContent = '';
+      twTimer = setTimeout(tick, 300);
+    }
+
+    function tick() {
+      const current = twRoles[ri];
+      if (waitFrames > 0) { waitFrames--; twTimer = setTimeout(tick, 80); return; }
+
+      if (!deleting) {
+        twEl.textContent = current.slice(0, ++ci);
+        if (ci === current.length) { deleting = true; waitFrames = 28; }
+      } else {
+        twEl.textContent = current.slice(0, --ci);
+        if (ci === 0) { deleting = false; ri = (ri + 1) % twRoles.length; waitFrames = 4; }
+      }
+
+      twTimer = setTimeout(tick, deleting ? 38 : 72);
+    }
+
+    /* ── Toggle handlers ─────────────────────────────────── */
+    document.getElementById('themeBtn').addEventListener('click', () => {
+      applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+
+    document.getElementById('langBtn').addEventListener('click', () => {
+      applyLang(currentLang === 'en' ? 'id' : 'en');
+    });
+
+    /* ── Boot ────────────────────────────────────────────── */
+    applyTheme(currentTheme);
+    applyLang(currentLang);
+    setTimeout(() => restartTypewriter(i18n[currentLang].roles), 900);
+  </script>
 </body>
 </html>
