@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>btar1gan — Bryan Tarigan</title>
   <meta name="author" content="Bryan Tarigan">
-  <meta name="description" content="Bryan Tarigan — Cybersecurity Consultant. Penetration Testing, Bug Bounty, Web Security.">
+  <meta name="description" content="Bryan Tarigan — Cybersecurity Consultant, Indonesia.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -14,47 +14,43 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ── Themes ──────────────────────────────────────────── */
     :root {
-      --orange:    #fc7a00;
-      --orange-bg: rgba(252,122,0,0.08);
-      --font-mono: 'Ubuntu Mono', 'Courier New', monospace;
-      --font-disp: 'Righteous', cursive;
-      --transition: 0.35s cubic-bezier(.4,0,.2,1);
+      --orange:     #fc7a00;
+      --orange-bg:  rgba(252,122,0,0.08);
+      --font-mono:  'Ubuntu Mono', 'Courier New', monospace;
+      --font-disp:  'Righteous', cursive;
+      --ease:       cubic-bezier(.4,0,.2,1);
+      --transition: 0.32s var(--ease);
     }
 
-    /* Dark (default) */
     [data-theme="dark"] {
       --bg:          #080c17;
       --vignette:    rgba(8,12,23,0.72);
-      --card-bg:     rgba(12, 18, 32, 0.72);
-      --card-border: rgba(252, 122, 0, 0.18);
-      --card-shadow: 0 24px 60px rgba(0,0,0,0.55);
-      --text:        #e8eaf0;
-      --muted:       #7a8099;
-      --link-border: rgba(255,255,255,0.07);
-      --p-color1:    #fc7a00;
-      --p-color2:    #b35700;
-      --p-color3:    #ffffff;
-      --p-line:      #fc7a00;
-      --p-line-op:   0.12;
+      --card-bg:     rgba(12,18,32,0.74);
+      --card-border: rgba(252,122,0,0.17);
+      --card-shadow: 0 28px 64px rgba(0,0,0,0.58);
+      --text:        #dde0ea;
+      --muted:       #6e7a96;
+      --subtle:      #4a5268;
+      --link-border: rgba(255,255,255,0.08);
+      --badge-bg:    rgba(30,200,80,0.11);
+      --badge-text:  #4ade80;
+      --badge-dot:   #4ade80;
     }
 
-    /* Light */
     [data-theme="light"] {
-      --bg:          #f0ede8;
-      --vignette:    rgba(210,200,185,0.5);
-      --card-bg:     rgba(255, 253, 250, 0.82);
-      --card-border: rgba(252, 122, 0, 0.28);
-      --card-shadow: 0 16px 48px rgba(60,40,10,0.14);
-      --text:        #1c1610;
-      --muted:       #7a6a55;
-      --link-border: rgba(0,0,0,0.1);
-      --p-color1:    #fc7a00;
-      --p-color2:    #d46200;
-      --p-color3:    #a08060;
-      --p-line:      #fc7a00;
-      --p-line-op:   0.18;
+      --bg:          #edeae4;
+      --vignette:    rgba(190,180,165,0.42);
+      --card-bg:     rgba(255,253,249,0.88);
+      --card-border: rgba(252,122,0,0.24);
+      --card-shadow: 0 16px 48px rgba(50,32,8,0.13);
+      --text:        #1e1a14;
+      --muted:       #74664f;
+      --subtle:      #a8977e;
+      --link-border: rgba(0,0,0,0.09);
+      --badge-bg:    rgba(22,163,74,0.09);
+      --badge-text:  #15803d;
+      --badge-dot:   #16a34a;
     }
 
     html, body {
@@ -67,58 +63,38 @@
     }
 
     /* ── Particles ───────────────────────────────────────── */
-    #particles-js {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
+    #particles-js { position: fixed; inset: 0; z-index: 0; }
+
+    .vignette {
+      pointer-events: none; position: fixed; inset: 0; z-index: 5;
+      background: radial-gradient(ellipse at center, transparent 42%, var(--vignette) 100%);
       transition: background var(--transition);
     }
 
-    /* ── Controls top-right ──────────────────────────────── */
+    /* ── Controls ────────────────────────────────────────── */
     .controls {
-      position: fixed;
-      top: 1.2rem;
-      right: 1.4rem;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      gap: .5rem;
+      position: fixed; top: 1rem; right: 1.25rem; z-index: 20;
+      display: flex; align-items: center; gap: .4rem;
     }
 
     .ctrl-btn {
-      display: flex;
-      align-items: center;
-      gap: .35rem;
-      padding: .35rem .7rem;
-      border-radius: 20px;
+      display: flex; align-items: center; gap: .28rem;
+      padding: .28rem .62rem; border-radius: 20px;
       border: 1px solid var(--card-border);
       background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--muted);
-      font-family: var(--font-mono);
-      font-size: .72rem;
-      letter-spacing: .05em;
-      cursor: pointer;
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      color: var(--muted); font-family: var(--font-mono);
+      font-size: .69rem; letter-spacing: .06em; text-transform: uppercase;
+      cursor: pointer; user-select: none;
       transition: color .2s, border-color .2s, background .2s;
-      user-select: none;
     }
-
-    .ctrl-btn:hover {
-      color: var(--orange);
-      border-color: rgba(252,122,0,0.45);
-    }
-
-    .ctrl-btn i { font-size: .8rem; }
+    .ctrl-btn:hover { color: var(--orange); border-color: rgba(252,122,0,0.42); }
+    .ctrl-btn i { font-size: .72rem; }
 
     /* ── Stage ───────────────────────────────────────────── */
     .stage {
-      position: fixed;
-      inset: 0;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: fixed; inset: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: center;
       padding: 1.5rem;
     }
 
@@ -126,174 +102,187 @@
     .card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 20px;
-      backdrop-filter: blur(18px) saturate(1.4);
-      -webkit-backdrop-filter: blur(18px) saturate(1.4);
-      padding: 2.8rem 3rem;
-      max-width: 680px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      gap: 2.8rem;
+      border-radius: 22px;
+      backdrop-filter: blur(20px) saturate(1.5);
+      -webkit-backdrop-filter: blur(20px) saturate(1.5);
+      padding: 2.5rem 2.75rem;
+      max-width: 660px; width: 100%;
+      display: flex; align-items: center; gap: 2.5rem;
       box-shadow: var(--card-shadow), inset 0 1px 0 rgba(255,255,255,0.06);
-      transition:
-        background var(--transition),
-        border-color var(--transition),
-        box-shadow var(--transition);
-
-      opacity: 0;
-      transform: translateY(24px);
-      animation: fadeUp 0.7s cubic-bezier(.22,.68,0,1.1) 0.35s forwards;
+      transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 0.6s cubic-bezier(.22,.68,0,1.1) 0.28s forwards;
     }
-
     @keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
 
     /* ── Avatar ──────────────────────────────────────────── */
     .avatar-wrap { flex-shrink: 0; position: relative; }
 
     .avatar-wrap::before {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
+      content: ''; position: absolute; inset: -4px; border-radius: 50%;
       background: conic-gradient(
-        var(--orange) 0deg, transparent 80deg,
-        transparent 200deg, var(--orange) 280deg, var(--orange) 360deg
+        var(--orange) 0deg, transparent 75deg,
+        transparent 195deg, var(--orange) 285deg, var(--orange) 360deg
       );
-      animation: spin 6s linear infinite;
-      z-index: -1;
+      animation: spin 7s linear infinite; z-index: -1;
     }
-
     @keyframes spin { to { transform: rotate(360deg); } }
 
     .avatar-wrap::after {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      border-radius: 50%;
-      background: var(--bg);
-      transition: background var(--transition);
+      content: ''; position: absolute; inset: -2px; border-radius: 50%;
+      background: var(--bg); transition: background var(--transition);
     }
 
     .avatar {
       position: relative; z-index: 1;
-      width: 120px; height: 120px;
+      width: 116px; height: 116px;
       border-radius: 50%; object-fit: cover; display: block;
     }
 
     /* ── Info ────────────────────────────────────────────── */
     .info { flex: 1; min-width: 0; }
 
+    /* Handle — display font, hero size */
     .handle {
       font-family: var(--font-disp);
-      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      font-size: clamp(1.45rem, 3.6vw, 1.9rem);
       color: var(--orange);
-      letter-spacing: .02em;
-      line-height: 1;
-      margin-bottom: .35rem;
+      letter-spacing: .025em; line-height: 1;
+      margin-bottom: .4rem;
     }
 
+    /* Full name — slightly larger than role, clear hierarchy */
     .fullname {
-      font-size: clamp(.9rem, 2.5vw, 1.1rem);
-      color: var(--text);
+      font-size: 1rem;          /* fixed, not clamp — names shouldn't shrink oddly */
       font-weight: 700;
-      margin-bottom: .25rem;
+      color: var(--text);
+      letter-spacing: .01em;
+      margin-bottom: .18rem;
       transition: color var(--transition);
     }
 
+    /* Role typewriter — muted, clearly secondary */
     .role {
-      font-size: clamp(.78rem, 2vw, .9rem);
+      font-size: .88rem;
       color: var(--muted);
-      min-height: 1.3em;
+      min-height: 1.4em;
       transition: color var(--transition);
     }
 
     .cursor {
-      display: inline-block; width: 2px; height: 1em;
+      display: inline-block; width: 2px; height: .85em;
       background: var(--orange); vertical-align: text-bottom;
-      margin-left: 2px; animation: blink .9s step-end infinite;
+      margin-left: 1px; animation: blink .85s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ── Meta row — location · email on ONE line ─────────── */
+    .meta {
+      display: flex; align-items: center; gap: .75rem;
+      margin-top: .6rem; flex-wrap: wrap;
     }
 
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .meta-info {
+      display: flex; align-items: center; gap: .28rem;
+      font-size: .74rem; color: var(--muted);
+      transition: color var(--transition);
+      white-space: nowrap;
+    }
+    .meta-info i { font-size: .7rem; opacity: .75; }
+
+    .meta-sep {
+      color: var(--subtle); font-size: .74rem;
+      opacity: .6; user-select: none;
+    }
+
+    /* location + email in single flex row */
+    .meta-line {
+      display: flex; align-items: center; gap: .45rem; flex-wrap: wrap;
+    }
+
+    .badge {
+      display: flex; align-items: center; gap: .32rem;
+      font-size: .69rem; padding: .18rem .5rem;
+      border-radius: 20px;
+      background: var(--badge-bg); color: var(--badge-text);
+      border: 1px solid color-mix(in srgb, var(--badge-text) 28%, transparent);
+      white-space: nowrap;
+      transition: background var(--transition), color var(--transition);
+    }
+    .badge-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--badge-dot);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.45; transform:scale(.7); }
+    }
 
     /* ── Divider ─────────────────────────────────────────── */
     .divider {
-      margin: 1.2rem 0; height: 1px;
+      margin: 1.05rem 0; height: 1px;
       background: linear-gradient(90deg, var(--orange) 0%, transparent 100%);
-      opacity: .3;
+      opacity: .25;
     }
 
-    /* ── Tags ────────────────────────────────────────────── */
-    .tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: 1.3rem; }
-
-    .tag {
-      font-size: .7rem;
-      padding: .25rem .65rem;
-      border: 1px solid rgba(252,122,0,0.35);
-      border-radius: 4px;
+    /* ── Bio — comfortable reading size ──────────────────── */
+    .bio {
+      font-size: .86rem;       /* up from .82 — easier on eyes */
       color: var(--muted);
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      transition: color .2s, border-color .2s, background .2s;
+      line-height: 1.6;        /* generous leading */
+      margin-bottom: 1.1rem;
+      transition: color var(--transition);
     }
 
-    .tag:hover {
-      color: var(--orange);
-      border-color: var(--orange);
-      background: var(--orange-bg);
-    }
-
-    /* ── Social links ────────────────────────────────────── */
-    .links { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+    /* ── Social icon links ───────────────────────────────── */
+    .links { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
 
     .link {
-      color: var(--muted);
-      font-size: 1.35rem;
-      width: 38px; height: 38px;
+      color: var(--muted); font-size: 1.15rem;
+      width: 38px; height: 38px;              /* slightly larger hit target */
       display: flex; align-items: center; justify-content: center;
-      border: 1px solid var(--link-border);
-      border-radius: 8px;
+      border: 1px solid var(--link-border); border-radius: 9px;
       text-decoration: none;
-      transition: color .25s, border-color .25s, transform .2s, background .25s;
+      transition: color .2s, border-color .2s, transform .18s, background .2s;
     }
-
     .link:hover {
       color: var(--orange);
-      border-color: rgba(252,122,0,0.5);
+      border-color: rgba(252,122,0,0.48);
       background: var(--orange-bg);
       transform: translateY(-2px);
     }
 
-    .email-link {
-      display: flex; align-items: center; gap: .5rem;
-      margin-left: .2rem; font-size: .78rem;
-      color: var(--muted); text-decoration: none;
-      transition: color .25s; white-space: nowrap;
+    /* ── CV button ───────────────────────────────────────── */
+    .cv-btn {
+      display: inline-flex; align-items: center; gap: .38rem;
+      margin-top: .85rem;
+      padding: .4rem .95rem; border-radius: 8px;
+      border: 1px solid rgba(252,122,0,0.42);
+      background: var(--orange-bg);
+      color: var(--orange); font-family: var(--font-mono);
+      font-size: .76rem; letter-spacing: .04em;
+      text-decoration: none; cursor: pointer;
+      transition: background .2s, border-color .2s, transform .18s;
     }
-
-    .email-link i { font-size: .85rem; }
-    .email-link:hover { color: var(--orange); }
-
-    /* ── Vignette ────────────────────────────────────────── */
-    .vignette {
-      pointer-events: none; position: fixed; inset: 0; z-index: 5;
-      background: radial-gradient(ellipse at center, transparent 50%, var(--vignette) 100%);
-      transition: background var(--transition);
-    }
+    .cv-btn:hover { background: rgba(252,122,0,0.14); transform: translateY(-1px); }
+    .cv-btn i { font-size: .76rem; }
+    .cv-btn.hidden { display: none; }
 
     /* ── Mobile ──────────────────────────────────────────── */
-    @media (max-width: 560px) {
+    @media (max-width: 580px) {
       body { overflow: auto; }
       html, body { height: auto; }
       .stage { position: relative; min-height: 100svh; padding-top: 4.5rem; }
       .card {
         flex-direction: column; text-align: center;
-        padding: 2rem 1.6rem; gap: 1.4rem;
+        padding: 2rem 1.5rem; gap: 1.25rem;
       }
-      .avatar { width: 96px; height: 96px; }
+      .avatar { width: 94px; height: 94px; }
       .divider { background: linear-gradient(90deg, transparent, var(--orange), transparent); }
-      .tags, .links { justify-content: center; }
-      .email-link span { display: none; }
+      .meta, .meta-line, .links { justify-content: center; }
+      /* on tiny screens show only the icon for email — text wraps badly */
+      .meta-email-text { display: none; }
     }
   </style>
 </head>
@@ -302,10 +291,9 @@
   <div id="particles-js"></div>
   <div class="vignette"></div>
 
-  <!-- Controls -->
   <div class="controls">
     <button class="ctrl-btn" id="themeBtn" aria-label="Toggle theme">
-      <i class="fas fa-moon" id="themeIcon"></i>
+      <i id="themeIcon" class="fas fa-moon"></i>
       <span id="themeLabel">Dark</span>
     </button>
     <button class="ctrl-btn" id="langBtn" aria-label="Toggle language">
@@ -316,23 +304,43 @@
 
   <div class="stage">
     <div class="card">
+
       <div class="avatar-wrap">
         <img class="avatar" src="img/avatar.jpg" alt="Bryan Tarigan">
       </div>
+
       <div class="info">
+
         <p class="handle">btar1gan</p>
         <p class="fullname">Bryan Tarigan</p>
         <p class="role"><span class="typewriter"></span><span class="cursor"></span></p>
 
-        <div class="divider"></div>
-
-        <div class="tags">
-          <span class="tag" data-en="Penetration Testing" data-id="Uji Penetrasi">Penetration Testing</span>
-          <span class="tag" data-en="Bug Bounty"          data-id="Bug Bounty">Bug Bounty</span>
-          <span class="tag" data-en="Web Security"        data-id="Keamanan Web">Web Security</span>
-          <span class="tag" data-en="CTF"                 data-id="CTF">CTF</span>
+        <!-- One line: location · email + availability badge -->
+        <div class="meta">
+          <div class="meta-line">
+            <span class="meta-info">
+              <i class="fas fa-location-dot"></i>
+              <span data-i18n="location">Indonesia</span>
+            </span>
+            <span class="meta-sep">·</span>
+            <a class="meta-info" href="mailto:tarigan.garage@protonmail.com" style="text-decoration:none; transition: color .2s;" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color=''">
+              <i class="fas fa-envelope"></i>
+              <span class="meta-email-text">tarigan.garage@protonmail.com</span>
+            </a>
+          </div>
+          <span class="badge">
+            <span class="badge-dot"></span>
+            <span data-i18n="available">Available</span>
+          </span>
         </div>
 
+        <div class="divider"></div>
+
+        <p class="bio" data-i18n="bio">
+          Impossible is nothing.
+        </p>
+
+        <!-- Social links — no email here, it's in meta row above -->
         <div class="links">
           <a class="link" href="https://www.linkedin.com/in/bryantarigan/" target="_blank" rel="noopener" title="LinkedIn">
             <i class="fab fa-linkedin-in"></i>
@@ -341,16 +349,27 @@
             <i class="fab fa-github"></i>
           </a>
           <a class="link" href="https://hackerone.com/btar1gan/hacktivity" target="_blank" rel="noopener" title="HackerOne">
+            <!-- fa-bug is the closest FA icon; no official HackerOne icon in FA -->
             <i class="fas fa-bug"></i>
+          </a>
+          <!-- HackTheBox — replace href with your profile URL -->
+          <a class="link" href="https://app.hackthebox.com/profile/YOUR_ID" target="_blank" rel="noopener" title="HackTheBox">
+            <i class="fas fa-cube"></i>
+          </a>
+          <!-- TryHackMe — replace href with your profile URL -->
+          <a class="link" href="https://tryhackme.com/p/YOUR_USERNAME" target="_blank" rel="noopener" title="TryHackMe">
+            <i class="fas fa-flag"></i>
           </a>
           <a class="link" href="https://www.youtube.com/@veritasium" target="_blank" rel="noopener" title="YouTube">
             <i class="fab fa-youtube"></i>
           </a>
-          <a class="email-link" href="mailto:tarigan.garage@protonmail.com">
-            <i class="fas fa-envelope"></i>
-            <span>tarigan.garage@protonmail.com</span>
-          </a>
         </div>
+
+        <!-- CV — remove class="hidden" and set href to your PDF when ready -->
+        <a class="cv-btn hidden" href="cv.pdf" target="_blank" data-i18n-html="cv">
+          <i class="fas fa-file-arrow-down"></i> Download CV
+        </a>
+
       </div>
     </div>
   </div>
@@ -358,153 +377,131 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
 
   <script>
-    /* ── State ───────────────────────────────────────────── */
-    const saved = {
-      theme: localStorage.getItem('theme') || 'light',
-      lang:  localStorage.getItem('lang')  || 'en'
-    };
-
     /* ── i18n ────────────────────────────────────────────── */
     const i18n = {
       en: {
-        roles:    ['Cybersecurity Consultant', 'Penetration Tester', 'Bug Bounty Hunter'],
-        darkBtn:  'Dark',
-        lightBtn: 'Light',
-        idBtn:    'ID'
+        roles:     ['Offensive Cybersecurity Consultant', 'Penetration Tester', 'AI Red Teamer', 'Bug Bounty Hunter'],
+        location:  'Indonesia',
+        available: 'Available',
+        bio:       'Impossible is nothing.',
+        cv:        '<i class="fas fa-file-arrow-down"></i> Download CV',
+        darkLbl:   'Dark', lightLbl: 'Light',
       },
       id: {
-        roles:    ['Konsultan Keamanan Siber', 'Penguji Penetrasi', 'Pemburu Bug Bounty'],
-        darkBtn:  'Gelap',
-        lightBtn: 'Terang',
-        idBtn:    'EN'
+        roles:     ['Offensive Cybersecurity Consultant', 'Penetration Tester', 'AI Red Teamer', 'Bug Bounty Hunter'],
+        location:  'Indonesia',
+        available: 'Tersedia',
+        bio:       'Impossible is nothing.',
+        cv:        '<i class="fas fa-file-arrow-down"></i> Unduh CV',
+        darkLbl:   'Gelap', lightLbl: 'Terang',
       }
     };
 
-    let currentLang  = saved.lang;
-    let currentTheme = saved.theme;
+    let lang  = localStorage.getItem('lang')  || 'en';
+    let theme = localStorage.getItem('theme') || 'light';
 
-    /* ── Particles init ──────────────────────────────────── */
-    function initParticles(theme) {
-      const dark = theme === 'dark';
-      // destroy existing instance if any
+    /* ── Particles ───────────────────────────────────────── */
+    function initParticles(t) {
       if (window.pJSDom && window.pJSDom.length) {
         window.pJSDom[0].pJS.fn.vendors.destroypJS();
         window.pJSDom = [];
       }
       document.getElementById('particles-js').innerHTML = '';
-
+      const dark = t === 'dark';
       particlesJS('particles-js', {
         particles: {
-          number: { value: 65, density: { enable: true, value_area: 900 } },
-          color: { value: dark
-            ? ['#fc7a00', '#b35700', '#ffffff']
-            : ['#fc7a00', '#d46200', '#a08060']
-          },
-          shape: { type: 'circle' },
-          opacity: { value: dark ? 0.45 : 0.55, random: true },
-          size:    { value: 2.5, random: true },
+          number: { value: 70, density: { enable: true, value_area: 900 } },
+          color:  { value: dark ? ['#fc7a00','#b35700','#cccccc'] : ['#fc7a00','#d46200','#999999'] },
+          shape:  { type: 'circle' },
+          opacity: { value: dark ? 0.5 : 0.5, random: true },
+          size:    { value: 3, random: true },
           line_linked: {
-            enable: true, distance: 140, color: '#fc7a00',
-            opacity: dark ? 0.12 : 0.2, width: 1
+            enable: true, distance: 150, color: '#fc7a00',
+            opacity: dark ? 0.13 : 0.18, width: 1
           },
-          move: { enable: true, speed: 1.2, direction: 'none', random: true, out_mode: 'out' }
+          move: { enable: true, speed: 4, direction: 'none', random: true, out_mode: 'out' }
         },
         interactivity: {
           detect_on: 'canvas',
           events: {
-            onhover: { enable: true, mode: 'grab' },
+            onhover: { enable: true, mode: 'bubble' },
             onclick: { enable: true, mode: 'push' },
-            resize: true
+            resize:  true
           },
           modes: {
-            grab: { distance: 140, line_linked: { opacity: 0.4 } },
-            push: { particles_nb: 3 }
+            bubble: { distance: 200, size: 7, duration: 0.4, opacity: 0.85, speed: 3 },
+            push:   { particles_nb: 4 }
           }
         },
         retina_detect: true
       });
     }
 
-    /* ── Apply theme ─────────────────────────────────────── */
-    function applyTheme(theme) {
-      currentTheme = theme;
-      document.body.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-
-      const dark = theme === 'dark';
-      const t = i18n[currentLang];
+    /* ── Theme ───────────────────────────────────────────── */
+    function applyTheme(t) {
+      theme = t;
+      localStorage.setItem('theme', t);
+      document.body.setAttribute('data-theme', t);
+      const dark = t === 'dark';
       document.getElementById('themeIcon').className = dark ? 'fas fa-sun' : 'fas fa-moon';
-      document.getElementById('themeLabel').textContent = dark ? t.lightBtn : t.darkBtn;
-
-      initParticles(theme);
+      document.getElementById('themeLabel').textContent = dark ? i18n[lang].lightLbl : i18n[lang].darkLbl;
+      initParticles(t);
     }
 
-    /* ── Apply language ──────────────────────────────────── */
-    function applyLang(lang) {
-      currentLang = lang;
-      localStorage.setItem('lang', lang);
-      document.documentElement.lang = lang === 'id' ? 'id' : 'en';
+    /* ── Language ────────────────────────────────────────── */
+    function applyLang(l) {
+      lang = l;
+      localStorage.setItem('lang', l);
+      document.documentElement.lang = l === 'id' ? 'id' : 'en';
+      const t = i18n[l];
 
-      const t = i18n[lang];
+      document.getElementById('langLabel').textContent = l === 'en' ? 'ID' : 'EN';
 
-      // tag text
-      document.querySelectorAll('.tag[data-' + lang + ']').forEach(el => {
-        el.textContent = el.dataset[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        if (t[el.dataset.i18n] !== undefined) el.textContent = t[el.dataset.i18n];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        if (t[el.dataset.i18nHtml] !== undefined) el.innerHTML = t[el.dataset.i18nHtml];
       });
 
-      // lang button label
-      document.getElementById('langLabel').textContent = lang === 'id' ? 'EN' : 'ID';
-
-      // theme button label (re-sync with new lang)
-      const dark = currentTheme === 'dark';
-      document.getElementById('themeLabel').textContent = dark ? t.lightBtn : t.darkBtn;
-
-      // restart typewriter with new language
+      const dark = theme === 'dark';
+      document.getElementById('themeLabel').textContent = dark ? t.lightLbl : t.darkLbl;
       restartTypewriter(t.roles);
     }
 
     /* ── Typewriter ──────────────────────────────────────── */
-    let twTimer = null;
-    let twRoles = i18n[currentLang].roles;
-    let ri = 0, ci = 0, deleting = false, waitFrames = 0;
+    let twTimer, twRoles = [], ri = 0, ci = 0, deleting = false, wait = 0;
     const twEl = document.querySelector('.typewriter');
 
     function restartTypewriter(roles) {
       clearTimeout(twTimer);
-      twRoles = roles;
-      ri = 0; ci = 0; deleting = false; waitFrames = 0;
+      twRoles = roles; ri = 0; ci = 0; deleting = false; wait = 0;
       twEl.textContent = '';
-      twTimer = setTimeout(tick, 300);
+      twTimer = setTimeout(tick, 320);
     }
 
     function tick() {
-      const current = twRoles[ri];
-      if (waitFrames > 0) { waitFrames--; twTimer = setTimeout(tick, 80); return; }
-
+      const cur = twRoles[ri];
+      if (wait > 0) { wait--; twTimer = setTimeout(tick, 80); return; }
       if (!deleting) {
-        twEl.textContent = current.slice(0, ++ci);
-        if (ci === current.length) { deleting = true; waitFrames = 28; }
+        twEl.textContent = cur.slice(0, ++ci);
+        if (ci === cur.length) { deleting = true; wait = 26; }
       } else {
-        twEl.textContent = current.slice(0, --ci);
-        if (ci === 0) { deleting = false; ri = (ri + 1) % twRoles.length; waitFrames = 4; }
+        twEl.textContent = cur.slice(0, --ci);
+        if (ci === 0) { deleting = false; ri = (ri + 1) % twRoles.length; wait = 4; }
       }
-
-      twTimer = setTimeout(tick, deleting ? 38 : 72);
+      twTimer = setTimeout(tick, deleting ? 36 : 68);
     }
 
-    /* ── Toggle handlers ─────────────────────────────────── */
-    document.getElementById('themeBtn').addEventListener('click', () => {
-      applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
-    });
-
-    document.getElementById('langBtn').addEventListener('click', () => {
-      applyLang(currentLang === 'en' ? 'id' : 'en');
-    });
+    /* ── Toggles ─────────────────────────────────────────── */
+    document.getElementById('themeBtn').addEventListener('click', () =>
+      applyTheme(theme === 'dark' ? 'light' : 'dark'));
+    document.getElementById('langBtn').addEventListener('click', () =>
+      applyLang(lang === 'en' ? 'id' : 'en'));
 
     /* ── Boot ────────────────────────────────────────────── */
-    applyTheme(currentTheme);
-    applyLang(currentLang);
-    setTimeout(() => restartTypewriter(i18n[currentLang].roles), 900);
+    applyTheme(theme);
+    setTimeout(() => applyLang(lang), 80);
   </script>
 </body>
 </html>
