@@ -3,9 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bryan Tarigan</title>
+  <title>btar1gan — Bryan Tarigan</title>
   <meta name="author" content="Bryan Tarigan">
-  <meta name="description" content="Bryan Tarigan — Cybersecurity Consultant, Indonesia.">
+  <meta name="description" content="Bryan Tarigan — Offensive Cybersecurity Consultant · AI Red Teamer · Indonesia.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Open Graph — controls preview when shared on LinkedIn, WhatsApp, etc. -->
+  <meta property="og:title"       content="btar1gan — Bryan Tarigan">
+  <meta property="og:description" content="Offensive Cybersecurity Consultant · AI Red Teamer · Indonesia">
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://btar1gan.github.io">
+
+  <!-- Mobile browser tab color -->
+  <meta name="theme-color" content="#edeae4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#080c17"  media="(prefers-color-scheme: dark)">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -398,39 +411,51 @@
     };
 
     let lang  = localStorage.getItem('lang')  || 'en';
-    let theme = localStorage.getItem('theme') || 'light';
+    let theme = localStorage.getItem('theme') ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 
-    /* ── Particles ───────────────────────────────────────── */
+    /* ── Particles ─────────────────────────────────────────
+       Original app.js config preserved exactly.
+       Only change: color #565656 → #fc7a00 (orange).
+       detect_on: 'window' so grab works over the card (z-index fix).
+    ──────────────────────────────────────────────────────── */
     function initParticles(t) {
       if (window.pJSDom && window.pJSDom.length) {
         window.pJSDom[0].pJS.fn.vendors.destroypJS();
         window.pJSDom = [];
       }
       document.getElementById('particles-js').innerHTML = '';
-      const dark = t === 'dark';
       particlesJS('particles-js', {
         particles: {
-          number: { value: 70, density: { enable: true, value_area: 900 } },
-          color:  { value: dark ? ['#fc7a00','#b35700','#cccccc'] : ['#fc7a00','#d46200','#999999'] },
-          shape:  { type: 'circle' },
-          opacity: { value: dark ? 0.5 : 0.5, random: true },
-          size:    { value: 3, random: true },
+          number:  { value: 75, density: { enable: true, value_area: 800 } },
+          color:   { value: '#fc7a00' },
+          shape:   { type: 'circle', stroke: { width: 0, color: '#000000' } },
+          opacity: { value: 0.5, random: false,
+                     anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
+          size:    { value: 6, random: true,
+                     anim: { enable: false, speed: 40, size_min: 0.1, sync: false } },
           line_linked: {
-            enable: true, distance: 150, color: '#fc7a00',
-            opacity: dark ? 0.13 : 0.18, width: 1
+            enable: true, distance: 150, color: '#fc7a00', opacity: 0.4, width: 2.5
           },
-          move: { enable: true, speed: 4, direction: 'none', random: true, out_mode: 'out' }
+          move: {
+            enable: true, speed: 3, direction: 'none',
+            random: false, straight: false, out_mode: 'out', bounce: false,
+            attract: { enable: false, rotateX: 600, rotateY: 1200 }
+          }
         },
         interactivity: {
-          detect_on: 'canvas',
+          detect_on: 'window',
           events: {
-            onhover: { enable: true, mode: 'bubble' },
+            onhover: { enable: true, mode: 'grab' },
             onclick: { enable: true, mode: 'push' },
             resize:  true
           },
           modes: {
-            bubble: { distance: 200, size: 7, duration: 0.4, opacity: 0.85, speed: 3 },
-            push:   { particles_nb: 4 }
+            grab:    { distance: 150, line_linked: { opacity: 1 } },
+            bubble:  { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+            repulse: { distance: 200, duration: 0.4 },
+            push:    { particles_nb: 4 },
+            remove:  { particles_nb: 2 }
           }
         },
         retina_detect: true
@@ -503,5 +528,12 @@
     applyTheme(theme);
     setTimeout(() => applyLang(lang), 80);
   </script>
+  <!-- ── Analytics (GoatCounter) ──────────────────────────
+       Sign up free at https://goatcounter.com
+       Replace YOUR_CODE with your account code, then remove this comment.
+  ─────────────────────────────────────────────────────── -->
+  <script data-goatcounter="https://btar1gan.goatcounter.com/count"
+    async src="//gc.zgo.at/count.js"></script>
+
 </body>
 </html>
